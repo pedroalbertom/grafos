@@ -6,7 +6,7 @@ public class WikiAnalyzer {
         int numVertices = 2394385; // Valor do cabeçalho
         Digraph G = new Digraph(numVertices + 1); // +1 por segurança de índice
 
-        BufferedReader br = new BufferedReader(new FileReader("src/WikiTalk.txt"));
+        BufferedReader br = new BufferedReader(new FileReader("data/WikiTalk.txt"));
         String line;
         
         while ((line = br.readLine()) != null) {
@@ -30,7 +30,7 @@ public class WikiAnalyzer {
 
         System.out.println("Iniciando exportação de métricas...");
 
-        try (PrintWriter writer = new PrintWriter(new File("metricas_vertices.csv"))) {
+        try (PrintWriter writer = new PrintWriter(new File("results/metricas_vertices.csv"))) {
             // Cabeçalho do CSV
             writer.println("Vertice;GrauEntrada;GrauSaida");
 
