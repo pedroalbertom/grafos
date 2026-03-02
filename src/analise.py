@@ -1,10 +1,19 @@
+import os
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import powerlaw
 
-# 1. Carregamento e Preparação dos Dados
-df = pd.read_csv('../results/metricas_vertices.csv', sep=';')
+# Pega o diretório onde o analise.py está (src)
+diretorio_atual = os.path.dirname(os.path.abspath(__file__))
+
+# Monta o caminho subindo um nível e entrando em results
+caminho_csv = os.path.join(diretorio_atual, "..", "results", "metricas_vertices.csv")
+
+print(f"Tentando abrir: {os.path.abspath(caminho_csv)}")
+
+# Carrega o CSV
+df = pd.read_csv(caminho_csv, sep=';')
 
 # Cálculo do Grau Total (Soma de In e Out para análise de escala livre)
 df['GrauTotal'] = df['GrauEntrada'] + df['GrauSaida']
@@ -21,16 +30,16 @@ grau_medio = (2 * E) / V
 print(f"Ordem |V|: {V}")
 print(f"Tamanho |E|: {E}")
 print(f"Densidade: {densidade:.10f}")
-print(f"Grau Médio: {grau_medio:.2f}")
+print(f"Grau Medio: {grau_medio:.2f}")
 
 # 3. Visualização da Distribuição de Graus P(k)
 fig, ax = plt.subplots(1, 2, figsize=(15, 6))
 
 # Histograma Linear (P(k) em escala normal)
 ax[0].hist(df_filtered['GrauTotal'], bins=100, color='royalblue', edgecolor='white', density=True)
-ax[0].set_title('Distribuição de Graus P(k) - Escala Linear')
+ax[0].set_title('Distribuicao de Graus P(k) - Escala Linear')
 ax[0].set_xlabel('Grau (k)')
-ax[0].set_ylabel('Frequência Normalizada')
+ax[0].set_ylabel('Frequencia Normalizada')
 ax[0].grid(axis='y', alpha=0.3)
 
 # Gráfico Log-Log (Essencial para identificar Escala Livre)
@@ -42,9 +51,9 @@ y = counts.values
 ax[1].scatter(x, y, alpha=0.6, s=15, color='darkorange')
 ax[1].set_xscale('log')
 ax[1].set_yscale('log')
-ax[1].set_title('Distribuição de Graus P(k) - Escala Log-Log')
+ax[1].set_title('Distribuicao de Graus P(k) - Escala Log-Log')
 ax[1].set_xlabel('Grau (k) - Log')
-ax[1].set_ylabel('Frequência P(k) - Log')
+ax[1].set_ylabel('Frequencia P(k) - Log')
 ax[1].grid(which='both', linestyle='--', alpha=0.5)
 
 plt.tight_layout()
@@ -61,11 +70,11 @@ print(f"Coeficiente D (KS test): {fit.power_law.D:.4f}")
 
 # 5. Comparação de Distribuições (Análise Crítica)
 R, p = fit.distribution_compare('power_law', 'lognormal')
-print(f"\nComparação Power Law vs Lognormal:")
-print(f"Razão de Verossimilhança (R): {R:.4f}")
+print(f"\nComparacao Power Law vs Lognormal:")
+print(f"Razao de Verossimilhanca (R): {R:.4f}")
 print(f"p-value: {p:.4f}")
 
 if R > 0 and p < 0.05:
-    print("Conclusão: A Lei de Potência é estatisticamente mais provável que a Lognormal.")
+    print("Conclusao: A Lei de Potência e estatisticamente mais provavel que a Lognormal.")
 else:
-    print("Conclusão: Não há evidência forte para descartar a Lognormal frente à Lei de Potência.")
+    print("Conclusao: Nao ha evidencia forte para descartar a Lognormal frente a Lei de Potencia.")
