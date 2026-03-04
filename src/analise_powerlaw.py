@@ -5,7 +5,7 @@ df = pd.read_csv('results/metricas_vertices.csv', sep=';')
 
 for tipo in ['GrauEntrada', 'GrauSaida']:
     dados = df[df[tipo] > 0][tipo].values
-    fit = powerlaw.Fit(dados, discrete=True, xmin=1, verbose=False)
+    fit = powerlaw.Fit(dados, discrete=True, verbose=False)
     
     print(f"\n--- ANÁLISE: {tipo} ---")
     print(f"Gamma (Alpha): {fit.power_law.alpha:.4f}")
@@ -14,4 +14,5 @@ for tipo in ['GrauEntrada', 'GrauSaida']:
     print(f"N na Cauda:    {len(fit.power_law.data)}")
     
     R, p = fit.distribution_compare('power_law', 'lognormal')
+    print(f"R:             {R:.4f}")
     print(f"p-value (vs Lognormal): {p:.4f}")

@@ -5,7 +5,7 @@ df = pd.read_csv('results/metricas_vertices.csv', sep=';')
 
 for tipo in ['GrauEntrada', 'GrauSaida']:
     dados = df[df[tipo] > 0][tipo].values
-    fit = powerlaw.Fit(dados, discrete=True, xmin=1, verbose=False)
+    fit = powerlaw.Fit(dados, discrete=True, verbose=False)
     
     print(f"\n--- ANÁLISE: {tipo} ---")
     print(f"Gamma (Alpha): {fit.power_law.alpha:.4f}")

@@ -1,10 +1,8 @@
 {
-    "java.project.sourcePaths": [
-        "src",
-        "C:/Users/pedro/Documents/Projects/grafos/lib/algs4.jar"
-    ],
-    "java.project.outputPath": "bin",
-    "java.project.referencedLibraries": [
-        "lib/**/*.jar"
-    ]
+  "java.project.sourcePaths": [
+    "src",
+    "C:/Users/Robs/Documents/Eng. Comp/Grafos/grafos-main/lib/algs4.jar"
+  ],
+  "java.project.outputPath": "bin",
+  "java.project.referencedLibraries": ["lib/**/*.jar"]
 }
